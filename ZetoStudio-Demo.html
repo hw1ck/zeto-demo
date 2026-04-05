@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zeto.Studio CardDemo(f)</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap');
+
+        * { box-sizing: border-box; }
+
+        body {
+            background-color: #050505;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'DM Sans', 'Georgia', 'Palatino', serif;
+            color: #ffffff;
+            cursor: none;
+        }
+
+        .custom-cursor {
+            position: fixed;
+            top: 0; left: 0;
+            width: 28px; height: 28px;
+            border: 2px solid #ffffff;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transform: translate(-50%, -50%);
+            transition: border-color 0.2s ease;
+        }
+
+        .custom-cursor::after {
+            content: '';
+            width: 6px; height: 6px;
+            background-color: #ffffff;
+            border-radius: 50%;
+            transition: background-color 0.2s ease;
+        }
+
+        .custom-cursor.hovered { border-color: #2563eb; }
+        .custom-cursor.hovered::after { background-color: #2563eb; }
+
+        .card-wrapper {
+            position: relative;
+            border-radius: 18px;
+            isolation: isolate;
+        }
+
+        .card-glow {
+            position: absolute;
+            inset: -2px;
+            border-radius: 18px;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            background: radial-gradient(circle 180px at 50% 50%, rgba(37, 99, 235, 0.45), transparent 70%);
+        }
+
+        .card-wrapper:hover .card-glow {
+            opacity: 1;
+        }
+
+        .card {
+            position: relative;
+            background-color: #0d1117;
+            border: 1px solid #1f2937;
+            border-radius: 18px;
+            padding: 36px;
+            width: 340px;
+            transition: border-color 0.3s ease;
+        }
+
+        .card-wrapper:hover .card {
+            border-color: rgba(37, 99, 235, 0.45);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 36px;
+        }
+
+        .card-header h2 {
+            margin: 0;
+            font-family: 'DM Serif Display', 'Georgia', serif;
+            font-size: 1.45rem;
+            font-weight: 400;
+            letter-spacing: -0.01em;
+            line-height: 1.2;
+        }
+
+        .category {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.65rem;
+            letter-spacing: 0.18em;
+            color: #4b5563;
+            text-transform: uppercase;
+            font-weight: 500;
+            margin-top: 4px;
+        }
+
+        .card-stats { margin-bottom: 20px; }
+
+        .card-stats h1 {
+            margin: 0;
+            font-family: 'DM Serif Display', 'Georgia', serif;
+            font-size: 5rem;
+            font-weight: 400;
+            font-style: italic;
+            color: #3b82f6;
+            line-height: 1;
+            letter-spacing: -0.03em;
+        }
+
+        .subtitle {
+            margin: 10px 0 0 0;
+            color: #6b7280;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 300;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .divider {
+            width: 32px;
+            height: 1px;
+            background: #1f2937;
+            margin: 24px 0;
+        }
+
+        .card-description { margin-bottom: 32px; }
+
+        .card-description p {
+            margin: 0;
+            color: #9ca3af;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.92rem;
+            font-weight: 300;
+            line-height: 1.75;
+            letter-spacing: 0.01em;
+        }
+
+        .card-link {
+            color: #3b82f6;
+            text-decoration: none;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: none;
+        }
+
+        .card-link .arrow { transition: transform 0.2s ease; font-size: 1rem; }
+        .card-link:hover .arrow { transform: translateX(5px); }
+    </style>
+</head>
+<body>
+
+<div class="custom-cursor" id="cursor"></div>
+
+<div class="card-wrapper" id="card-wrapper">
+    <div class="card-glow" id="card-glow"></div>
+    <div class="card">
+        <div class="card-header">
+            <h2>Trunkie</h2>
+            <span class="category">Education</span>
+        </div>
+
+        <div class="card-stats">
+            <h1>50+</h1>
+            <p class="subtitle">modules shipped</p>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="card-description">
+            <p>AI-native school operating system launched with 50+ modules.</p>
+        </div>
+
+        <a href="#" class="card-link">
+            Read case study <span class="arrow">→</span>
+        </a>
+    </div>
+</div>
+
+<script>
+    const cursor = document.getElementById('cursor');
+    const cardWrapper = document.getElementById('card-wrapper');
+    const cardGlow = document.getElementById('card-glow');
+
+    document.addEventListener('mousemove', (e) => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top  = e.clientY + 'px';
+
+        const rect = cardWrapper.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        cardGlow.style.background =
+            `radial-gradient(circle 180px at ${x}px ${y}px, rgba(37,99,235,0.45), transparent 70%)`;
+    });
+
+    cardWrapper.addEventListener('mouseenter', () => cursor.classList.add('hovered'));
+    cardWrapper.addEventListener('mouseleave', () => cursor.classList.remove('hovered'));
+</script>
+
+</body>
+</html>
