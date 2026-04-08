@@ -1,7 +1,7 @@
 🔴 HIGH PRIORITY (Immediate Impact):-
 
 	Favicon / Browser Tab Branding
-		Issue: The favicon (tab icon) appears unclear/inconsistent and doesn’t align well with the brand 		identity.
+		Issue: The favicon (tab icon) appears unclear/inconsistent and doesn’t align well with the brand identity.
 		Impact:
 			First impression feels slightly unpolished
 			Reduces brand recall and visual clarity
