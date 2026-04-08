@@ -35,7 +35,7 @@
 			Introduce visual anchors (cards/icons/spacing)
 
 	Primary CTA Clarity
-		Issue: Multiple CTAs (e.g., “Book Strategy Call”, “Request Product Blueprint”) compete for 			attention.
+		Issue: Multiple CTAs (e.g., “Book Strategy Call”, “Request Product Blueprint”) compete for attention.
 		Impact: Creates decision friction and reduces conversions.
 		Suggestion:
 			Define a clear primary CTA
